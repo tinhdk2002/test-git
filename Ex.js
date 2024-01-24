@@ -143,7 +143,7 @@ async function getTotalOfficialLanguages() {
     const totalOfficialLanguages = new Set(officialLanguages.map(lang => lang.name)).size;
     console.log('Total Number of Official Languages:', totalOfficialLanguages);
   } catch (error) {
-    console.error('Error fetching countries API:', error);
+    console.error('Error fetching countries API:', error);  
   }
 }
 
@@ -156,3 +156,5 @@ setTimeout(() => {
   getTotalOfficialLanguages();
 
 })
+
+console.log("a")
