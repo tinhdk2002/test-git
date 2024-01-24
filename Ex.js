@@ -134,7 +134,7 @@ async function getTop10LargestCountries() {
 }
 
 
-// Read the countries API and count the total number of languages in the world used as officials using async/await.
+// Read the countries API and count the total number of languages in the world used using async/await.
 async function getTotalOfficialLanguages() {
   try {
     const response = await fetch(countriesAPI);
@@ -143,16 +143,50 @@ async function getTotalOfficialLanguages() {
     const totalOfficialLanguages = new Set(officialLanguages.map(lang => lang.name)).size;
     console.log('Total Number of Official Languages:', totalOfficialLanguages);
   } catch (error) {
-    console.error('Error fetching countries API:', error);
+    console.error('Error fetching countries API:', error);  
   }
 }
 
-setTimeout(() => {
+// setTimeout(() => {
   
-  getCountriesInfo();
-  getCatNames();
-  getAverageWeight();
-  getTop10LargestCountries();
-  getTotalOfficialLanguages();
+//   getCountriesInfo();
+//   getCatNames();
+//   getAverageWeight();
+//   getTop10LargestCountries();
+//   getTotalOfficialLanguages();
 
-})
+// })
+
+function fetchDataFromCatApi() {
+  return fetch(catsAPI)
+    .then(response => response.json());
+}
+
+function fetchDataFromCountryApi() {
+  return fetch(countriesAPI)
+    .then(response => response.json());
+}
+
+Promise.all([
+  fetchDataFromCatApi(),
+  fetchDataFromCountryApi()
+])
+  .then(([catData, countryData]) => {
+    // console.log('Cat API Data:', catData);
+    // console.log('Country API Data:', countryData);
+
+  })
+  .catch((error) => {
+    console.error('Error loading data:', error);
+  });
+
+Promise.any([
+  fetchDataFromCatApi(),
+  fetchDataFromCountryApi()
+])
+  .then(([catData, countryData]) => {
+    console.log('First data resolved:');
+  })
+  .catch((errors) => {
+    console.error('All promises rejected:', errors);
+  });
